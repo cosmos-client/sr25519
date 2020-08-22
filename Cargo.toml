@@ -1,6 +1,6 @@
 [package]
-name = "crypto"
-version = "0.1.0"
+name = "sr25519"
+version = "0.1.1"
 authors = ["Kimura Yu <33382781+KimuraYu45z@users.noreply.github.com>"]
 edition = "2018"
 

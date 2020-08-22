@@ -38,16 +38,16 @@ fn create_from_pair(pair: &[u8]) -> Keypair {
 }
 
 /// PublicKey helper
-fn create_public(public: &[u8]) -> PublicKey {
-    match PublicKey::from_bytes(public) {
+fn create_public(public_key: &[u8]) -> PublicKey {
+    match PublicKey::from_bytes(public_key) {
         Ok(public) => return public,
         Err(_) => panic!("Provided public key is invalid."),
     }
 }
 
 /// SecretKey helper
-fn create_secret(secret: &[u8]) -> SecretKey {
-    match SecretKey::from_bytes(secret) {
+fn create_secret(secret_key: &[u8]) -> SecretKey {
+    match SecretKey::from_bytes(secret_key) {
         Ok(secret) => return secret,
         Err(_) => panic!("Provided private key is invalid."),
     }
@@ -92,8 +92,8 @@ pub fn derive_keypair_soft(pair: &[u8], cc: &[u8]) -> Vec<u8> {
 ///
 /// returned vector is the derived publicKey as a array of 32 bytes
 #[wasm_bindgen]
-pub fn derive_public_soft(public: &[u8], cc: &[u8]) -> Vec<u8> {
-    create_public(public)
+pub fn derive_public_soft(public_key: &[u8], cc: &[u8]) -> Vec<u8> {
+    create_public(public_key)
         .derived_key_simple(create_cc(cc), &[])
         .0
         .to_bytes()
@@ -122,9 +122,9 @@ pub fn keypair_from_seed(seed: &[u8]) -> Vec<u8> {
 ///
 /// * returned vector is the signature consisting of 64 bytes.
 #[wasm_bindgen]
-pub fn sign(context: &[u8], public: &[u8], secret: &[u8], message: &[u8]) -> Vec<u8> {
-    create_secret(secret)
-        .sign_simple(context, message, &create_public(public))
+pub fn sign(context: &[u8], public_key: &[u8], secret_key: &[u8], message: &[u8]) -> Vec<u8> {
+    create_secret(secret_key)
+        .sign_simple(context, message, &create_public(public_key))
         .to_bytes()
         .to_vec()
 }
@@ -135,13 +135,13 @@ pub fn sign(context: &[u8], public: &[u8], secret: &[u8], message: &[u8]) -> Vec
 /// * message: Arbitrary length UIntArray
 /// * pubkey: UIntArray with 32 element
 #[wasm_bindgen]
-pub fn verify(context: &[u8], signature: &[u8], message: &[u8], public: &[u8]) -> bool {
+pub fn verify(context: &[u8], signature: &[u8], message: &[u8], public_key: &[u8]) -> bool {
     let signature = match Signature::from_bytes(signature) {
         Ok(signature) => signature,
         Err(_) => return false,
     };
 
-    create_public(public)
+    create_public(public_key)
         .verify_simple(context, message, &signature)
         .is_ok()
 }
