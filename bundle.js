@@ -2,7 +2,7 @@ const fs = require("fs");
 
 const bytes = fs.readFileSync("pkg/sr25519_bg.wasm");
 fs.writeFileSync(
-  "pkg/wasm.js",
+  "pkg/sr25519_bg.js",
   `export const base64 = '${bytes.toString("base64")}';`
 );
 
@@ -12,6 +12,6 @@ fs.writeFileSync(
   src.replace(
     `const path = require('path').join(__dirname, 'sr25519_bg.wasm');
 const bytes = require('fs').readFileSync(path);`,
-    `const bytes = Buffer.from(require('wasm.js').base64, 'base64');`
+    `const bytes = Buffer.from(require('sr25519_bg.js').base64, 'base64');`
   )
 );
