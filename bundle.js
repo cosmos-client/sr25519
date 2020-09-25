@@ -3,7 +3,7 @@ const fs = require("fs");
 const bytes = fs.readFileSync("pkg/sr25519_bg.wasm");
 fs.writeFileSync(
   "pkg/sr25519_bg.js",
-  `export const base64 = ${bytes.toString("base64")};`
+  `module.exports.base64 = '${bytes.toString("base64")}';`
 );
 
 const src = fs.readFileSync("pkg/sr25519.js").toString("utf-8");
