@@ -8,4 +8,7 @@ This can be used from Node.JS by compiling to WASM.
 ```shell
 cargo install wasm-pack
 wasm-pack build --target nodejs .
+node bundle
+cd pkg
+npm publish
 ```
