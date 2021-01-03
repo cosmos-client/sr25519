@@ -7,31 +7,19 @@ This can be used from Node.JS by compiling to WASM.
 
 ```shell
 cargo install wasm-pack
-wasm-pack build
+wasm-pack build --target bundler
 cd pkg
 npm publish
 ```
 
 ## To use in web
 
-```bash
-npm i -D @wasm-tool/wasm-pack-plugin
-```
-
 `webpack.config.js`
 
 ```javascript
-const path = require("path");
-const WasmPackPlugin = require("@wasm-tool/wasm-pack-plugin");
-
 module.exports = {
   resolve: {
-    extensions: [".js", ".ts", ".wasm"],
+    extensions: [".wasm"],
   },
-  plugins: [
-    new WasmPackPlugin({
-      crateDirectory: path.join(__dirname, "node_modules/sr25519"),
-    }),
-  ],
 };
 ```
