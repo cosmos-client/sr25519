@@ -7,8 +7,7 @@ This can be used from Node.JS by compiling to WASM.
 
 ```shell
 cargo install wasm-pack
-wasm-pack build --target nodejs .
-node bundle
+wasm-pack build
 cd pkg
 npm publish
 ```
