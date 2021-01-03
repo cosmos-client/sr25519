@@ -14,12 +14,4 @@ npm publish
 
 ## To use in web
 
-`webpack.config.js`
-
-```javascript
-module.exports = {
-  resolve: {
-    extensions: [".wasm"],
-  },
-};
-```
+Load this module asynchronously.
